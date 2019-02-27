@@ -9,7 +9,7 @@
     public class ApiService
     {
         public async Task<Response> GetList<T>(string urlBase,string prefix,string controller)
-        {
+        {           
             try
             {
                 var client = new HttpClient();
@@ -23,7 +23,7 @@
                     return new Response
                     {
                         IsSuccess = false,
-                        Message = answer,
+                        Message = answer.ToString(),
                     };
                 }
 
@@ -40,7 +40,7 @@
                 return new Response
                 {
                     IsSuccess = false,
-                    Message = ex.Message,
+                    Message = ex.Message, //+ client.BaseAddress+url,
                 };
             }
 
