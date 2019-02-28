@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
     using Common.Models;
     using Newtonsoft.Json;
+    using Plugin.Connectivity;
 
     public class ApiService
     {
@@ -44,6 +45,34 @@
                 };
             }
 
+        }
+
+        public async Task<Response> CheckConnection()
+        {
+            if (!CrossConnectivity.Current.IsConnected)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = "Please turn on your Internet Settings!",//Languages.InternetSettings,
+                };
+            }
+
+            var isReachable = await CrossConnectivity.Current.IsRemoteReachable("google.com");
+            if (!isReachable)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = "No Internet Connection!",//Languages.NoConnection,
+                };
+            }
+
+            return new Response
+            {
+                IsSuccess = true,
+               
+            };
         }
     }
 }

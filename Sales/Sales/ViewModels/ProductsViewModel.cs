@@ -36,7 +36,18 @@ namespace Sales.ViewModels
         {
             this.IsRefreshing = true;
 
-            var response = await this.apiService.GetList<Product>("http://192.168.1.201/", "/sales.api/api", "/Products");
+            var connection = await this.apiService.CheckConnection();
+
+            if (!connection.IsSuccess)
+            {
+                this.IsRefreshing = false;
+                await Application.Current.MainPage.DisplayAlert("Error", connection.Message, "Accept");
+                return;
+            }
+
+            var url = Application.Current.Resources["UrlAPI"].ToString();
+
+            var response = await this.apiService.GetList<Product>(url, "/sales.api/api", "/Products");
             if (!response.IsSuccess)
             {
                 await Application.Current.MainPage.DisplayAlert("Error", response.Message, "Accept");
