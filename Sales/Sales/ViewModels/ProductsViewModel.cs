@@ -3,14 +3,15 @@
 
 namespace Sales.ViewModels
 {
-    using GalaSoft.MvvmLight.Command;
-    using Sales.Common.Models;
-    using Sales.Services;
-    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Windows.Input;
     using Xamarin.Forms;
+    using GalaSoft.MvvmLight.Command;
+    using Common.Models;
+    using Helpers;
+    using Services;
+
 
     public class ProductsViewModel : BaseViewModel
     {
@@ -41,16 +42,18 @@ namespace Sales.ViewModels
             if (!connection.IsSuccess)
             {
                 this.IsRefreshing = false;
-                await Application.Current.MainPage.DisplayAlert("Error", connection.Message, "Accept");
+                await Application.Current.MainPage.DisplayAlert(Languages.Error, connection.Message, Languages.Accept);
                 return;
             }
 
             var url = Application.Current.Resources["UrlAPI"].ToString();
+            var prefix = Application.Current.Resources["UrlPrefix"].ToString();
+            var controller = Application.Current.Resources["UrlProductsController"].ToString();
 
-            var response = await this.apiService.GetList<Product>(url, "/sales.api/api", "/Products");
+            var response = await this.apiService.GetList<Product>(url, prefix, controller);
             if (!response.IsSuccess)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", response.Message, "Accept");
+                await Application.Current.MainPage.DisplayAlert(Languages.Error, response.Message, Languages.Accept);
                 return;
             }
 

@@ -1,9 +1,11 @@
 ﻿namespace Sales.Services
 {
+    
     using System.Collections.Generic;
     using System.Net.Http;
     using System.Threading.Tasks;
     using Common.Models;
+    using Helpers;
     using Newtonsoft.Json;
     using Plugin.Connectivity;
 
@@ -18,7 +20,7 @@
                 var url = $"{prefix}{controller}";
                 var response = await client.GetAsync(url);
                 var answer = await response.Content.ReadAsStringAsync();
-
+               
                 if (!response.IsSuccessStatusCode)
                 {
                     return new Response
@@ -54,17 +56,18 @@
                 return new Response
                 {
                     IsSuccess = false,
-                    Message = "Please turn on your Internet Settings!",//Languages.InternetSettings,
+                    Message = Languages.TurnOnInternet, //Languages.InternetSettings,
                 };
             }
 
-            var isReachable = await CrossConnectivity.Current.IsRemoteReachable("google.com");
+            var isReachable = await CrossConnectivity.Current.IsRemoteReachable("google.com",80,8000);
+
             if (!isReachable)
             {
                 return new Response
                 {
                     IsSuccess = false,
-                    Message = "No Internet Connection!",//Languages.NoConnection,
+                    Message = Languages.NoInternet,//Languages.NoConnection,
                 };
             }
 
