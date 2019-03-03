@@ -32,7 +32,8 @@
                     <Entry
                            Placeholder="{i18n:Translate DescriptionPlaceholder}"
                            Grid.Column="1"
-                           Grid.Row="0">
+                           Grid.Row="0"
+                           Text="{Binding Description}">
                     </Entry>
                     <Label Text="{i18n:Translate Price}"
                             Grid.Column="0"
@@ -42,7 +43,8 @@
                     Keyboard="Numeric"
                     Placeholder="{i18n:Translate PricePlaceholder}"
                          Grid.Column="1"
-                           Grid.Row="1">    
+                           Grid.Row="1"
+                        Text="{Binding Price}">    
                     </Entry>
                     <Label Text="{i18n:Translate Remarks}"
                            Grid.Column="0"
@@ -51,12 +53,14 @@
                     <Editor
                         VerticalOptions="FillAndExpand"
                         Grid.Column="1"
-                        Grid.Row="2">
+                        Grid.Row="2"
+                        Text="{Binding Remarks}">
                     </Editor>
                 </Grid>
 
 
                 <ActivityIndicator
+                    IsRunning="{Binding IsRunning}"
                     VerticalOptions="CenterAndExpand">
                 </ActivityIndicator>
                 <Button
@@ -64,7 +68,9 @@
                 BorderRadius="23"
                 HeightRequest="46"
                 BackgroundColor="Navy"
-                TextColor="White">
+                TextColor="White"
+                IsEnabled="{Binding IsEnabled}"
+                Command="{Binding SaveCommand}">
                 </Button>
             </StackLayout>
         </ScrollView>

@@ -21,7 +21,7 @@ namespace Sales.API.Controllers
         // GET: api/Products
         public IQueryable<Product> GetProducts()
         {
-            return db.Products;
+            return this.db.Products.OrderBy(p=>p.Description);
         }
 
         // GET: api/Products/5
@@ -76,12 +76,15 @@ namespace Sales.API.Controllers
         [ResponseType(typeof(Product))]
         public async Task<IHttpActionResult> PostProduct(Product product)
         {
+            product.IsAvailable = true;
+            product.PublishOn = DateTime.Now.ToUniversalTime();
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Products.Add(product);
+            this.db.Products.Add(product);
             await db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = product.ProductId }, product);

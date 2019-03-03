@@ -79,5 +79,15 @@ namespace Sales.Helpers
         {
             get { return Resource.ChangeImage; }
         }
+
+        public static string PriceError
+        {
+            get { return Resource.PriceError; }
+        }
+
+        public static string DescriptionError
+        {
+            get { return Resource.DescriptionError; }
+        }
     }
 }
