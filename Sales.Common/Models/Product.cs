@@ -28,6 +28,18 @@
         [DataType(DataType.Date)]
         public DateTime PublishOn { get; set; }
 
+        public string ImageFullPath {
+            get
+            {
+                if (string.IsNullOrEmpty(this.ImagePath))
+                {
+                    return "noproduct"; //Asume que la imagen es .PNG
+                }
+
+                return $"http://192.168.1.201/sales.backend/{this.ImagePath.Substring(1)}";
+            }
+        }
+
         public override string ToString()
         {
             return this.Description;

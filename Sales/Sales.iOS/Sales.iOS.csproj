@@ -166,4 +166,7 @@
   <ItemGroup>
     <Folder Include="Implementations\" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\noproduct.png" />
+  </ItemGroup>
 </Project>
