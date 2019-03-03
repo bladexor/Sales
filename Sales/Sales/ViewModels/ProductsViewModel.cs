@@ -29,9 +29,24 @@ namespace Sales.ViewModels
 
         public ProductsViewModel()
         {
+            instance = this;
             this.apiService = new ApiService();
             this.LoadProducts();
         }
+
+        #region Singleton
+                private static ProductsViewModel instance;
+
+                public static ProductsViewModel GetInstance()
+                {
+                    if (instance == null)
+                    {
+                        return new ProductsViewModel();
+                    }
+
+                    return instance;
+                }
+        #endregion
 
         private async void LoadProducts()
         {

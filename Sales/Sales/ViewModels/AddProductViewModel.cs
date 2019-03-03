@@ -125,7 +125,11 @@ namespace Sales.ViewModels
                     Languages.Accept);
                 return;
             }
+            var newProduct = (Product)response.Result;
+            var viewModel = ProductsViewModel.GetInstance();
 
+                viewModel.Products.Add(newProduct);
+           
             this.IsRunning = false;
             this.IsEnabled = true;
 
