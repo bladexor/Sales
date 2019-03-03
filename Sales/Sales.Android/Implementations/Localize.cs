@@ -1,23 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-
-[assembly: Xamarin.Forms.Dependency(typeof(Sales.Droid.Implementations.Localize))]
+﻿[assembly: Xamarin.Forms.Dependency(typeof(Sales.Droid.Implementations.Localize))]
 
 namespace Sales.Droid.Implementations
 {
-    using System.Globalization;
-    using System.Threading;
     using Helpers;
     using Interfaces;
+    using System.Globalization;
+    using System.Threading;
 
     class Localize: ILocalize
     {

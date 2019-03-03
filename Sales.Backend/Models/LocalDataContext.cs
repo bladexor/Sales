@@ -7,6 +7,8 @@ namespace Sales.Backend.Models
 
     public class LocalDataContext : DataContext
     {
-        public System.Data.Entity.DbSet<Sales.Common.Models.Product> Products { get; set; }
+#pragma warning disable CS0108 // 'LocalDataContext.Products' oculta el miembro heredado 'DataContext.Products'. Use la palabra clave new si su intención era ocultarlo.
+        
+#pragma warning restore CS0108 // 'LocalDataContext.Products' oculta el miembro heredado 'DataContext.Products'. Use la palabra clave new si su intención era ocultarlo.
     }
 }

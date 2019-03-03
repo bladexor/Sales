@@ -44,7 +44,7 @@ namespace Sales.Helpers
                     throw new ArgumentException(
                     String Format(
                         "Key '{0}' was not found in resources '{1}' for culture '{2}'",
-                    Text, ReourceId, ci.Name),"Text");
+                    Text, ResourceId, ci.Name),"Text");
 #else
                 translation = Text;
 #endif
