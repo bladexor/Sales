@@ -2,6 +2,7 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public class Product
     {
@@ -28,6 +29,9 @@
         [DataType(DataType.Date)]
         public DateTime PublishOn { get; set; }
 
+        [NotMapped]
+        public byte[] ImageArray { get; set; }
+
         public string ImageFullPath {
             get
             {
@@ -36,7 +40,7 @@
                     return "noproduct"; //Asume que la imagen es .PNG
                 }
 
-                return $"http://192.168.1.201/sales.backend/{this.ImagePath.Substring(1)}";
+                return $"http://192.168.1.201/sales.api/{this.ImagePath.Substring(1)}";
             }
         }
 
