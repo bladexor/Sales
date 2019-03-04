@@ -11,17 +11,17 @@ namespace Sales.ViewModels
     using Common.Models;
     using Helpers;
     using Services;
-
+    using System.Linq;
 
     public class ProductsViewModel : BaseViewModel
     {
         private readonly ApiService apiService;
-        private ObservableCollection<Product> products;
+        private ObservableCollection<ProductItemViewModel> products;
 
         private bool isRefreshing;
 
 
-        public ObservableCollection<Product> Products
+        public ObservableCollection<ProductItemViewModel> Products
         {
             get { return this.products; }
             set { this.SetValue(ref this.products, value); }
@@ -53,7 +53,6 @@ namespace Sales.ViewModels
             this.IsRefreshing = true;
 
             var connection = await this.apiService.CheckConnection();
-
             if (!connection.IsSuccess)
             {
                 this.IsRefreshing = false;
@@ -73,8 +72,20 @@ namespace Sales.ViewModels
             }
 
             var list = (List<Product>)response.Result;
-            this.Products = new ObservableCollection<Product>(list);
 
+            var myList = list.Select(p =>new ProductItemViewModel
+            {
+                    Description=p.Description,
+                    ImageArray = p.ImageArray,
+                    ImagePath = p.ImagePath,
+                    IsAvailable = p.IsAvailable,
+                    Price = p.Price,
+                    ProductId = p.ProductId,
+                    PublishOn = p.PublishOn,
+                    Remarks = p.Remarks,
+            });
+
+            this.Products = new ObservableCollection<ProductItemViewModel>(myList);
             this.IsRefreshing = false;
 
             //await Application.Current.MainPage.DisplayAlert("Data", list[0].Description, "Accept");

@@ -89,6 +89,43 @@
                 };
             }
         }
+
+        public async Task<Response> Delete(string urlBase, string prefix, string controller, int id)
+        {
+            try
+            {
+                var client = new HttpClient();
+                client.BaseAddress = new System.Uri(urlBase);
+                var url = $"{prefix}{controller}/{id}";
+                var response = await client.DeleteAsync(url);
+                var answer = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = answer.ToString(),
+                    };
+                }
+
+                return new Response
+                {
+                    IsSuccess = true,
+                };
+            }
+            catch (System.Exception ex)
+            {
+
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = ex.Message, //+ client.BaseAddress+url,
+                };
+            }
+
+        }
+
         public async Task<Response> CheckConnection()
         {
             if (!CrossConnectivity.Current.IsConnected)
@@ -100,7 +137,7 @@
                 };
             }
 
-            var isReachable = await CrossConnectivity.Current.IsRemoteReachable("google.com",80,8000);
+            var isReachable = await CrossConnectivity.Current.IsRemoteReachable("192.168.1.201",80,8000);
 
             if (!isReachable)
             {
