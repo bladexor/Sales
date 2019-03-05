@@ -8,6 +8,7 @@ using GalaSoft.MvvmLight.Command;
 using Xamarin.Forms;
 using Sales.Helpers;
 using System.Linq;
+using Sales.Views;
 
 namespace Sales.ViewModels
 {
@@ -80,9 +81,10 @@ namespace Sales.ViewModels
             }
         }
 
-        private void EditProduct()
+        private async void EditProduct()
         {
-            throw new NotImplementedException();
+            MainViewModel.GetInstance().EditProduct = new EditProductViewModel(this);
+            await Application.Current.MainPage.Navigation.PushAsync(new EditProductPage());
         }
         #endregion
     }

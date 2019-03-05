@@ -90,6 +90,46 @@
             }
         }
 
+        public async Task<Response> Put<T>(string urlBase, string prefix, string controller, T model,int id)
+        {
+            try
+            {
+                var request = JsonConvert.SerializeObject(model);
+                var content = new StringContent(request, Encoding.UTF8, "application/json");
+
+                var client = new HttpClient();
+                client.BaseAddress = new System.Uri(urlBase);
+                var url = $"{prefix}{controller}/{id}";
+                var response = await client.PutAsync(url, content);
+                var answer = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = answer.ToString(),
+                    };
+                }
+
+                var obj = JsonConvert.DeserializeObject<T>(answer);
+                return new Response
+                {
+                    IsSuccess = true,
+                    Result = obj,
+                };
+            }
+            catch (System.Exception ex)
+            {
+
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = ex.Message, //+ client.BaseAddress+url,
+                };
+            }
+        }
+
         public async Task<Response> Delete(string urlBase, string prefix, string controller, int id)
         {
             try
