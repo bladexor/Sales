@@ -75,9 +75,10 @@ namespace Sales.ViewModels
             }
 
             this.MyProducts = (List<Product>)response.Result;
-            this.RefreshList();
 
-            this.IsRefreshing = false;
+           this.RefreshList();
+
+           this.IsRefreshing = false;
 
             //await Application.Current.MainPage.DisplayAlert("Data", list[0].Description, "Accept");
         }
@@ -95,9 +96,11 @@ namespace Sales.ViewModels
                 PublishOn = p.PublishOn,
                 Remarks = p.Remarks,
             });
-
+           
             this.Products = new ObservableCollection<ProductItemViewModel>(
                 myListProductItemViewModel.OrderBy(p => p.Description));
+
+           
         }
 
         public bool IsRefreshing
