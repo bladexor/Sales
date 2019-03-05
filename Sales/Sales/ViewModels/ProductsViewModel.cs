@@ -12,6 +12,7 @@ namespace Sales.ViewModels
     using Helpers;
     using Services;
     using System.Linq;
+    using System;
 
     public class ProductsViewModel : BaseViewModel
     {
@@ -19,6 +20,8 @@ namespace Sales.ViewModels
         private ObservableCollection<ProductItemViewModel> products;
 
         private bool isRefreshing;
+
+        public List<Product> MyProducts { get; set; }
 
 
         public ObservableCollection<ProductItemViewModel> Products
@@ -71,24 +74,30 @@ namespace Sales.ViewModels
                 return;
             }
 
-            var list = (List<Product>)response.Result;
+            this.MyProducts = (List<Product>)response.Result;
+            this.RefreshList();
 
-            var myList = list.Select(p =>new ProductItemViewModel
-            {
-                    Description=p.Description,
-                    ImageArray = p.ImageArray,
-                    ImagePath = p.ImagePath,
-                    IsAvailable = p.IsAvailable,
-                    Price = p.Price,
-                    ProductId = p.ProductId,
-                    PublishOn = p.PublishOn,
-                    Remarks = p.Remarks,
-            });
-
-            this.Products = new ObservableCollection<ProductItemViewModel>(myList);
             this.IsRefreshing = false;
 
             //await Application.Current.MainPage.DisplayAlert("Data", list[0].Description, "Accept");
+        }
+
+        public void RefreshList()
+        {
+            var myListProductItemViewModel = MyProducts.Select(p => new ProductItemViewModel
+            {
+                Description = p.Description,
+                ImageArray = p.ImageArray,
+                ImagePath = p.ImagePath,
+                IsAvailable = p.IsAvailable,
+                Price = p.Price,
+                ProductId = p.ProductId,
+                PublishOn = p.PublishOn,
+                Remarks = p.Remarks,
+            });
+
+            this.Products = new ObservableCollection<ProductItemViewModel>(
+                myListProductItemViewModel.OrderBy(p => p.Description));
         }
 
         public bool IsRefreshing

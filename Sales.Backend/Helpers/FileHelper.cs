@@ -16,7 +16,8 @@ namespace Sales.Backend.Helpers
             if (file != null)
             {
                 pic = Path.GetFileName(file.FileName);
-                path = Path.Combine(HttpContext.Current.Server.MapPath(folder), pic);
+                //  path = Path.Combine(HttpContext.Current.Server.MapPath(folder), pic);
+                path = Path.Combine(HttpContext.Current.Server.MapPath(folder).Replace("sales.backend","sales.api"), pic);
                 file.SaveAs(path);
             }
 
