@@ -16,6 +16,8 @@ namespace Sales.ViewModels
         public AddProductViewModel AddProduct { get; set; }
 
         public EditProductViewModel EditProduct { get; set; }
+
+        public LoginViewModel Login { get; set; }
         #endregion
 
         #region Singleton
@@ -36,7 +38,7 @@ namespace Sales.ViewModels
         public MainViewModel()
         {
             instance = this;
-            this.Products = new ProductsViewModel();
+            //this.Products = new ProductsViewModel();
         }
         #endregion
 
