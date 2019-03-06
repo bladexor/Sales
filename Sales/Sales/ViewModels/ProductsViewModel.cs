@@ -75,26 +75,26 @@ namespace Sales.ViewModels
                 var answer = await this.LoadProductsFromAPI();
                 if (answer)
                 {
-                    this.SaveProductsToDB();
-                }
-                else
-                {
-                    await this.LoadProductsFromDBAsync();
+                    await this.SaveProductsToDB();
                 }
             }
-            if(this.MyProducts==null || this.MyProducts.Count == 0)
+            else
+            {
+                await this.LoadProductsFromDB();
+            }
+            if (this.MyProducts==null || this.MyProducts.Count == 0)
             {
                 this.IsRefreshing = false;
                 await Application.Current.MainPage.DisplayAlert(Languages.Error, Languages.NoProductsMessage, Languages.Accept);
-                return;
+
+               return;
             }
+
             this.RefreshList();
             this.IsRefreshing = false;
-
-            
         }
 
-        private async Task LoadProductsFromDBAsync()
+        private async Task LoadProductsFromDB()
         {
             this.MyProducts = await this.dataService.GetAllProducts();
         }
@@ -102,7 +102,7 @@ namespace Sales.ViewModels
         private async Task SaveProductsToDB()
         {
             await this.dataService.DeleteAllProducts();
-            this.dataService.Insert(this.MyProducts);
+            await this.dataService.Insert(this.MyProducts);
         }
 
         private async Task<bool> LoadProductsFromAPI()
