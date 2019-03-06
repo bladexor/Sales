@@ -231,7 +231,7 @@ namespace Sales.ViewModels
             var prefix = Application.Current.Resources["UrlPrefix"].ToString();
             var controller = Application.Current.Resources["UrlProductsController"].ToString();
 
-            var response = await this.apiService.Put<Product>(url, prefix, controller, this.product,this.product.ProductId);
+            var response = await this.apiService.Put<Product>(url, prefix, controller, this.product,this.product.ProductId, Settings.TokenType, Settings.AccessToken);
 
             if (!response.IsSuccess)
             {
