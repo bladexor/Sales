@@ -37,21 +37,33 @@
             return BadRequest(answer.Message);
         }
 
-        /*   [HttpPost]
+           [HttpPost]
            [Authorize]
            [Route("GetUser")]
-
-           public IHttpActionResult GetUser(Object form)
+           public IHttpActionResult GetUser(JObject form)
            {
                try
                {
+                        var email = String.Empty;
+                        dynamic jsonObject = form;
 
+                        try
+                        {
+                            email = jsonObject.Email.Value;
+                        }
+                        catch (Exception)
+                        {
+
+                            return BadRequest("Incorrect call.");
+                        }
+                    var user = UsersHelper.GetUserASP(email);
+                    return Ok(user);
                }
-               catch (Exception)
+               catch (Exception ex)
                {
 
-                   throw;
+                return BadRequest(ex.Message);
                }
-           } */
+           } 
     }
 }
