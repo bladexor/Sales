@@ -13,7 +13,7 @@
             <x:String x:Key="UrlAPI">http://192.168.1.201</x:String>
             <x:String x:Key="UrlPrefix">/sales.api/api</x:String>
             <x:String x:Key="UrlProductsController">/Products</x:String>
-            <x:String x:Key="UrlUsersController">/sales.api/Users</x:String>
+            <x:String x:Key="UrlUsersController">/Users</x:String>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
