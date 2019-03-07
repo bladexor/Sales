@@ -21,6 +21,8 @@ namespace Sales.ViewModels
 
         public LoginViewModel Login { get; set; }
 
+        public RegisterViewModel Register { get; set; }
+
         public ObservableCollection<MenuItemViewModel> Menu { get; set; }
         #endregion
 
