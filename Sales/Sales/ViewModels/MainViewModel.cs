@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Command;
+using Sales.Common.Models;
 using Sales.Helpers;
 using Sales.Views;
 using System;
@@ -23,7 +24,22 @@ namespace Sales.ViewModels
 
         public RegisterViewModel Register { get; set; }
 
+        public MyUserASP UserASP { get; set; }
+
         public ObservableCollection<MenuItemViewModel> Menu { get; set; }
+
+        public string UserFullName
+        {
+            get
+            {
+                if (this.UserASP != null && this.UserASP.Claims!=null && this.UserASP.Claims.Count>1)
+                {
+                    return $"{this.UserASP.Claims[0].ClaimValue} {this.UserASP.Claims[1].ClaimValue}";
+                }
+
+                return null;
+            }
+        }
         #endregion
 
         #region Singleton
