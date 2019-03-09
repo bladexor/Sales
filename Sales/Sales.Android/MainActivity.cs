@@ -8,6 +8,7 @@ using Android.Widget;
 using Android.OS;
 using Plugin.Permissions;
 using Plugin.CurrentActivity;
+using ImageCircle.Forms.Plugin.Droid;
 
 namespace Sales.Droid
 {
@@ -21,7 +22,7 @@ namespace Sales.Droid
 
             base.OnCreate(savedInstanceState);
             CrossCurrentActivity.Current.Init(this,savedInstanceState); //Requisito para nuget de la Camara
-
+            ImageCircleRenderer.Init();
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
         }

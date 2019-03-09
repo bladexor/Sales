@@ -40,6 +40,19 @@ namespace Sales.ViewModels
                 return null;
             }
         }
+
+        public string UserImageFullPath
+        {
+            get
+            {
+                if (this.UserASP != null && this.UserASP.Claims != null && this.UserASP.Claims.Count > 3)
+                {
+                    return $"http://192.168.1.201/sales.api{this.UserASP.Claims[3].ClaimValue.Substring(1)}";
+                }
+
+                return null;
+            }
+        }
         #endregion
 
         #region Singleton
